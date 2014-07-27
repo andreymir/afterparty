@@ -1,0 +1,57 @@
+<table class="table table-condensed container-fluid">
+    <thead>
+        <tr>
+            <th style="">
+                <!-- New basket form -->
+                <form role="form" ng-submit="addBasket()" style="display: none;">
+                    <div class="form-group">
+                        <input type="text" ng-model="newBasket" placeholder="Гость" class="form-control input-sm">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary btn-sm" value="Добавить">
+                    </div>
+                </form>
+            </th>
+            <th ng-repeat="basket in baskets">
+                <h4>{{basket.name}}</h4>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>
+                <!-- New product form -->
+                <form role="form" ng-submit="addProduct()" style="display: none;">
+                    <div class="form-group">
+                        <input type="text" class="form-control input-sm" placeholder="Наименование" ng-model="newProduct.name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-sm" placeholder="Количество" ng-model="newProduct.name">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control input-sm" type="number" placeholder="Стоимость" ng-model="newProduct.price">
+                    </div>
+                    <input type="submit" class="btn btn-primary btn-sm" value="Добавить">
+                </form>
+            </th>
+            <td ng-repeat="basket in baskets">
+                <!-- Products list -->
+                <div ui-sortable="sortableOptions" class="product-list" ng-model="basket.products" style="width: 250px; min-height: 300px; border: 1px solid #000;">
+                    <div ng-repeat="product in basket.products" class="product" style="margin: 5px; 10px; padding:5px 10px; cursor: move; background-color: antiquewhite;">
+                        {{product.name}}:&nbsp;{{product.price|currency}}
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>Итого</th>
+            <td ng-repeat="basket in baskets">{{$parent.getBasketTotal(basket)|currency}}</td>
+        </tr>
+        <tr>
+            <td>{{getTotal()|currency}}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="input-group">
+    <input type="button" class="btn btn-primary btn-sm" value="Сохранить" ng-click="dump()">
+</div>
